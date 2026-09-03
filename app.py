@@ -22,6 +22,7 @@ D14_COLOR  = "#5aa469"     # 1-14 day delivery
 D30_COLOR  = "#e8833a"     # 15-30 day delivery
 
 JSA_LOGO = "https://www.jpsi.com/wp-content/themes/gate39media/img/logo-full.png"
+WATERMARK_OPACITY = 0.10
 
 # ── Data sources ─────────────────────────────────────────────────────────────
 # USDA AMS LMR (old datamart system) — no API key required.
@@ -362,6 +363,12 @@ if not combo.empty:
     _end = trend["report_date"].max()
     _start = _end - pd.Timedelta(days=3 * 365) if pd.notna(_end) else None
 
+    fig.add_layout_image(dict(
+        source=JSA_LOGO, xref="paper", yref="paper",
+        x=0.5, y=0.5, sizex=0.5, sizey=0.5,
+        xanchor="center", yanchor="middle", sizing="contain",
+        opacity=WATERMARK_OPACITY, layer="below",
+    ))
     fig.update_layout(
         paper_bgcolor="#ffffff", plot_bgcolor="#ffffff",
         font=dict(color=JPSI_DARK, size=11), hovermode="x unified",
@@ -503,6 +510,12 @@ if not vol_df.empty:
     _vend = vol_df["report_date"].max()
     _vstart = _vend - pd.Timedelta(days=2 * 365) if pd.notna(_vend) else None
 
+    fig2.add_layout_image(dict(
+        source=JSA_LOGO, xref="paper", yref="paper",
+        x=0.5, y=0.5, sizex=0.5, sizey=0.5,
+        xanchor="center", yanchor="middle", sizing="contain",
+        opacity=WATERMARK_OPACITY, layer="below",
+    ))
     fig2.update_layout(
         paper_bgcolor="#ffffff", plot_bgcolor="#ffffff",
         font=dict(color=JPSI_DARK, size=11), hovermode="x unified",
